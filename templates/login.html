@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
+    <button id="theme-toggle" class="theme-toggle">Mode</button>
     <div class="form-container">
+        <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo de Login" class="login-image">
         <h1>Iniciar Sesión</h1>
         {% if error %}
             <p class="error">{{ error }}</p>
@@ -19,7 +21,27 @@
             <input type="password" id="password" name="password" required>
             <button type="submit" class="btn">Ingresar</button>
         </form>
-        <p>¿No tienes una cuenta? <a href="/register">Regístrate aquí</a></p>
     </div>
+    <script>
+        // Script para alternar entre modo claro y oscuro
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Cargar el tema desde localStorage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'light') {
+            body.classList.add('light-mode');
+        }
+
+        // Alternar tema y guardar en localStorage
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            if (body.classList.contains('light-mode')) {
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
